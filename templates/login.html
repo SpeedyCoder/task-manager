@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Manager Login{% endblock %}
+
+{% block content %}
+    {% if form.errors %}
+    <div class="notification is-danger is-small">
+        Your username and password didn't match. Please try again.
+    </div>
+    {% endif %}
+    <section class="section">
+    <div class="level">
+        <div class="level-item has-text-centered">
+            <h2 class="title">Task Manager Login</h2>
+        </div>
+    </div>
+    <div class="level">
+        <div class="level-item has-text-centered">
+            <form method="post">
+                {% csrf_token %}
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input" name="username" type="text" placeholder="Username">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input" name="password" type="password" placeholder="Password">
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field is-grouped is-grouped-centered">
+                    <p class="control">
+                        <button class="button is-info" type="submit">Login</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </section>
+{% endblock %}

@@ -1,0 +1,21 @@
+{
+  "name": "task-manager",
+  "authors": [
+    "Michal Bock <michal.bock@gmail.com>"
+  ],
+  "description": "Task Manager",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bulma": "^0.7.1",
+    "fontawesome": "^5.0.13"
+  }
+}

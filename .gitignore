@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*$py.class
+eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+*.manifest
+*.spec
+
+.idea
+db.sqlite3
+*.iml
+main/local_settings.py
+static
