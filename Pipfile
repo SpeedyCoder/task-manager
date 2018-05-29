@@ -1,16 +1,16 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 
-
 [packages]
-
-django = "*"
-gunicorn = "*"
-django-heroku = "*"
-
+"psycopg2" = "==2.7.4"
+gunicorn = "==19.8.1"
+django-heroku = "==0.3.1"
+whitenoise = "==3.3.1"
+dj-database-url = "==0.5.0"
+python-decouple = "==3.1"
+django-model-utils = "==3.1.2"
+Django = "==2.0.5"
 
 [requires]
-
 python_version = "3.6"

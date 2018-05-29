@@ -14,3 +14,4 @@ db.sqlite3
 *.iml
 main/local_settings.py
 static
+.env
