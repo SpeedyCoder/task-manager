@@ -7,7 +7,8 @@ from django.contrib.auth.decorators import login_required
 from tasks import views
 
 urlpatterns = [
-    url(r'^$', login_required(views.TaskView.as_view()), name='home'),
+    url(r'^$', login_required(views.TaskListView.as_view()), name='home'),
+    url(r'^create-task/$', login_required(views.TaskCreateView.as_view(success_url="/")), name='tasks-create'),
     url(r'^login/$', auth_views.login, dict(template_name='login.html'), name='login'),
     url(r'^logout/$', auth_views.logout, dict(next_page='/login/'), name='logout'),
     path('admin/', admin.site.urls),

@@ -1,0 +1,37 @@
+{%  extends "home.html"%}
+{% block inner-content %}
+<section class="section">
+    <div class="columns is-centered">
+        <div class="column is-4">
+            <div class="card">
+                <div class="card-content">
+                    <div class="level">
+                        <div class="level-item has-text-centered">
+                            <h2 class="title">Add Task</h2>
+                        </div>
+                    </div>
+                    <div class="level">
+                        <div class="level-item has-text-centered">
+                            <form action="{% url "tasks-create" %}" method="POST" style="width: 100%;">
+                                {% csrf_token %}
+                                <div class="field">
+                                    <input class="input" type="text" name="name" placeholder="Name" required>
+                                </div>
+
+                                <div class="field">
+                                    <textarea class="textarea" rows="5" name="description" placeholder="Description" required></textarea>
+                                </div>
+                                <div class="field is-grouped is-grouped-right">
+                                    <p class="control">
+                                        <button class="button is-success" type="submit">Save</button>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

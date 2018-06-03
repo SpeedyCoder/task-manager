@@ -1,3 +1,5 @@
+{%  extends "home.html"%}
+{% block inner-content %}
 <div class="columns is-multiline">
     {% for task in tasks %}
         <div class="column is-4">
@@ -62,3 +64,4 @@
         </ul>
     </nav>
 {% endif %}
+{% endblock %}

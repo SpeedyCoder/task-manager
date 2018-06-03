@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
+from tasks.models import Task
+
 
 class ViewsTest(TestCase):
     user_model = get_user_model()
@@ -19,7 +21,16 @@ class ViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertTrue('login' in response.url)
 
-    def test_home(self):
+    def test_list(self):
         self.client.login(username='testuser', password='qwertyuiop')
         response = self.client.get('/', follow=True)
         self.assertEqual(response.status_code, 200)
+
+    def test_create(self):
+        self.client.login(username='testuser', password='qwertyuiop')
+        response = self.client.get('/create-task/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        form_data = dict(name='Test Name', description='Test Description.')
+        response = self.client.post('/create-task/', data=form_data, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Task.objects.filter(**form_data).count(), 1)
