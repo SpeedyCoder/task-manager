@@ -7,23 +7,43 @@
                 <div class="card-content">
                     <div class="level">
                         <div class="level-item has-text-centered">
-                            <h2 class="title">Add Task</h2>
+                            {% if task.pk %}
+                                <h2 class="title">Update Task</h2>
+                            {% else %}
+                                <h2 class="title">Add Task</h2>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="level">
                         <div class="level-item has-text-centered">
-                            <form action="{% url "tasks-create" %}" method="POST" style="width: 100%;">
+                            <form action="{% if task.pk %}{% url "tasks-update" task.pk %}{% else %}{% url "tasks-create" %}{% endif %}"
+                                  method="POST" style="width: 100%;">
                                 {% csrf_token %}
                                 <div class="field">
-                                    <input class="input" type="text" name="name" placeholder="Name" required>
+                                    <input class="input" type="text" name="name" placeholder="Name" required
+                                           value="{{ task.name }}">
                                 </div>
-
                                 <div class="field">
-                                    <textarea class="textarea" rows="5" name="description" placeholder="Description" required></textarea>
+                                    <div class="select" style="width: 100%;">
+                                        <select name="state" style="width: 100%;">
+                                            {% for value, display in form.fields.state.choices %}
+                                                <option value="{{ value }}"
+                                                        {% if value == task.state %}selected{% endif %}>
+                                                    {{ display }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="field is-grouped is-grouped-right">
+                                <div class="field">
+                                    <textarea class="textarea" rows="5" name="description" placeholder="Description" required>{{ task.description }}</textarea>
+                                </div>
+                                <div class="field">
                                     <p class="control">
-                                        <button class="button is-success" type="submit">Save</button>
+                                        <a class="button is-danger is-pulled-left" href="{% url "home" %}">Cancel</a>
+                                    </p>
+                                    <p class="control">
+                                        <button class="button is-success is-pulled-right" type="submit">Save</button>
                                     </p>
                                 </div>
                             </form>

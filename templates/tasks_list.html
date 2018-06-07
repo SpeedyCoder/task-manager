@@ -4,19 +4,38 @@
     {% for task in tasks %}
         <div class="column is-4">
             <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title is-primary">
+                <header class="card-header blue-header">
+                    <p class="card-header-title">
                         {{ task.name }}
                     </p>
                 </header>
+                <div class="card-header">
+                    <div class="card-footer-item">
+                        <p>
+                            <strong>Status:</strong> {{ task.get_state_display }}
+                        </p>
+                    </div>
+                    <div class="card-footer-item">
+                        <p>
+                            <strong>Owner:</strong>
+                            {% if task.owner %}{{ task.owner.username }}{% else %}-{% endif %}
+                        </p>
+                    </div>
+                </div>
                 <div class="card-content">
                     <div class="content">
                         {{ task.description }}
                     </div>
                 </div>
                 <footer class="card-footer">
-                    <a href="#" class="card-footer-item">Edit</a>
-                    <a href="#" class="card-footer-item">Mark as Completed</a>
+                    {% if task.is_done %}
+                        <p class="card-footer-item">
+                            <strong>Completed by:</strong>&nbsp;{{ task.completed_by.username }}
+                        </p>
+                    {% else %}
+                        <a href="{% url "tasks-update" pk=task.id %}" class="card-footer-item">Edit</a>
+                        <a href="{% url "tasks-complete" pk=task.id %}" class="card-footer-item">Mark as completed</a>
+                    {% endif %}
                 </footer>
             </div>
         </div>

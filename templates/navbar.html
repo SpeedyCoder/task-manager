@@ -1,14 +1,14 @@
 <nav class="navbar is-link">
     <div class="container">
         <div class="navbar-brand">
-            <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+            <div class="navbar-burger burger" data-target="navMenu">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </div>
 
-        <div class="navbar-menu">
+        <div class="navbar-menu" id="navMenu">
             <div class="navbar-start">
                 <a class="navbar-item" href="{% url "home" %}">
                     <strong>Home</strong>
@@ -16,6 +16,15 @@
                 <a class="navbar-item" href="{% url "tasks-create" %}">
                     <strong>Add Task</strong>
                 </a>
+                {% if hide_completed %}
+                    <a class="navbar-item" href="{% url "home" %}?hide_completed=false">
+                        <strong>Show All</strong>
+                    </a>
+                {% else %}
+                    <a class="navbar-item" href="{% url "home" %}?hide_completed=true">
+                        <strong>Hide completed</strong>
+                    </a>
+                {% endif %}
             </div>
             <div class="navbar-end">
                 <a class="navbar-item" href="/logout/">

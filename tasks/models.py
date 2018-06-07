@@ -23,3 +23,7 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def is_done(self):
+        return self.state == self.STATE.done

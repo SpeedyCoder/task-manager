@@ -15,6 +15,7 @@ if config('DEPLOYED', default=True, cast=bool):
             default=config('DATABASE_URL')
         )
     }
+    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 else:
     DATABASES = {
         'default': {
@@ -31,40 +32,6 @@ STATIC_URL = os.getenv('STATIC_URL', '/static/')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-# STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-
-# STATICFILES_FINDERS = (
-#     'django.contrib.staticfiles.finders.FileSystemFinder',
-#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#     'pipeline.finders.PipelineFinder',
-# )
-
-# PIPELINE = {
-#     'STYLESHEETS': {
-#         'libraries': {
-#             'source_filenames': (
-#                 'bower_components/bulma/css/bulma.css',
-#                 # 'bower_components/fontawesome/svg-with-js/css/fa-svg-with-js.css',
-#                 # 'bower_components/fontawesome/web-fonts-with-css/css/*.css',
-#             ),
-#             'output_filename': 'css/libraries.min.css',
-#         },
-#     },
-#     # 'JAVASCRIPT': {
-#     #     'libraries': {
-#     #         'source_filenames': (
-#     #             'bower_components/fontawesome/svg-with-js/js/fontawesome-all.js'
-#     #         ),
-#     #         'output_filename': 'js/libraries.min.js',
-#     #     }
-#     # }
-# }
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -77,9 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # 3rd party
-    # 'pipeline',
 
     # Project
     'tasks',

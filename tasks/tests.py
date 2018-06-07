@@ -28,9 +28,9 @@ class ViewsTest(TestCase):
 
     def test_create(self):
         self.client.login(username='testuser', password='qwertyuiop')
-        response = self.client.get('/create-task/', follow=True)
+        response = self.client.get('/task/', follow=True)
         self.assertEqual(response.status_code, 200)
-        form_data = dict(name='Test Name', description='Test Description.')
-        response = self.client.post('/create-task/', data=form_data, follow=True)
+        form_data = dict(name='Test Name', state=Task.STATE.todo, description='Test Description.')
+        response = self.client.post('/task/', data=form_data, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Task.objects.filter(**form_data).count(), 1)
