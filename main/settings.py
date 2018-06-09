@@ -15,7 +15,10 @@ if config('DEPLOYED', default=True, cast=bool):
             default=config('DATABASE_URL')
         )
     }
-    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+    RAVEN_CONFIG = {
+        'dsn': config('SENTRY_DSN'),
+        'release': config('COMMIT_HASH'),
+    }
 else:
     DATABASES = {
         'default': {
@@ -27,10 +30,16 @@ else:
             'PORT': config('DB_PORT'),
         }
     }
+    RAVEN_CONFIG = {
+        'dsn': '',
+        'release': '',
+    }
 
 STATIC_URL = os.getenv('STATIC_URL', '/static/')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 ALLOWED_HOSTS = ['*']
 
@@ -45,12 +54,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 3rd party
+    'raven.contrib.django.raven_compat',
+
     # Project
     'tasks',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
