@@ -1,3 +1,4 @@
+{% load helpers %}
 <nav class="navbar is-link">
     <div class="container">
         <div class="navbar-brand">
@@ -13,18 +14,20 @@
                 <a class="navbar-item" href="{% url "home" %}">
                     <strong>Home</strong>
                 </a>
-                <a class="navbar-item" href="{% url "tasks-create" %}">
+                <a class="navbar-item" href="{% url "tasks-create" %}?{{ request.GET.urlencode }}">
                     <strong>Add Task</strong>
                 </a>
-                {% if hide_completed %}
-                    <a class="navbar-item" href="{% url "home" %}?hide_completed=false">
-                        <strong>Show All</strong>
-                    </a>
-                {% else %}
-                    <a class="navbar-item" href="{% url "home" %}?hide_completed=true">
-                        <strong>Hide completed</strong>
-                    </a>
-                {% endif %}
+                {% with params=request.GET.urlencode %}
+                    {% if hide_completed %}
+                        <a class="navbar-item" href="{% url "home" %}{% relative_url "hide_completed" "false" params%}">
+                            <strong>Show All</strong>
+                        </a>
+                    {% else %}
+                        <a class="navbar-item" href="{% url "home" %}{% relative_url "hide_completed" "true" params%}">
+                            <strong>Hide completed</strong>
+                        </a>
+                    {% endif %}
+                {% endwith %}
             </div>
             <div class="navbar-end">
                 <a class="navbar-item" href="/logout/">

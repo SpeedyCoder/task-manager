@@ -1,4 +1,5 @@
 {%  extends "home.html"%}
+{% load helpers %}
 {% block inner-content %}
 <div class="columns is-multiline">
     {% for task in tasks %}
@@ -33,8 +34,13 @@
                             <strong>Completed by:</strong>&nbsp;{{ task.completed_by.username }}
                         </p>
                     {% else %}
-                        <a href="{% url "tasks-update" pk=task.id %}" class="card-footer-item">Edit</a>
-                        <a href="{% url "tasks-complete" pk=task.id %}" class="card-footer-item">Mark as completed</a>
+                        {% if task.owner == user %}
+                            <a href="{% url "tasks-delete" pk=task.id %}?{{ request.GET.urlencode }}"
+                               class="card-footer-item" onclick="return confirm('Are you sure?')">Delete</a>
+                            <a href="{% url "tasks-update" pk=task.id %}?{{ request.GET.urlencode }}" class="card-footer-item">Edit</a>
+                        {% endif %}
+                        <a href="{% url "tasks-complete" pk=task.id %}?{{ request.GET.urlencode }}"
+                           class="card-footer-item" onclick="return confirm('Are you sure?')">Complete</a>
                     {% endif %}
                 </footer>
             </div>
@@ -66,14 +72,16 @@
             {% for i in paginator.page_range %}
                   {% if page_obj.number == i %}
                       <li>
-                          <a href="?page={{ i }}" class="pagination-link is-current"
+                          <a href="{% url "home" %}{% relative_url "page" i request.GET.urlencode %}"
+                             class="pagination-link is-current"
                              aria-label="Page {{ i }}" aria-current="page">
                               {{ i }}
                           </a>
                       </li>
                   {% else %}
                       <li>
-                          <a href="?page={{ i }}" class="pagination-link"
+                          <a href="{% url "home" %}{% relative_url "page" i request.GET.urlencode %}"
+                             class="pagination-link"
                              aria-label="Page {{ i }}">
                               {{ i }}
                           </a>

@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 
     # 3rd party
     'raven.contrib.django.raven_compat',
+    'rules',
 
     # Project
     'tasks',
@@ -106,6 +107,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'rules.permissions.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Internationalization
 

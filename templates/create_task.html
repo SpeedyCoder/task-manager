@@ -19,6 +19,7 @@
                             <form action="{% if task.pk %}{% url "tasks-update" task.pk %}{% else %}{% url "tasks-create" %}{% endif %}"
                                   method="POST" style="width: 100%;">
                                 {% csrf_token %}
+                                <input type="text" name="redirect_params" value="{{ request.GET.urlencode }}" hidden>
                                 <div class="field">
                                     <input class="input" type="text" name="name" placeholder="Name" required
                                            value="{{ task.name }}">
@@ -40,7 +41,10 @@
                                 </div>
                                 <div class="field">
                                     <p class="control">
-                                        <a class="button is-danger is-pulled-left" href="{% url "home" %}">Cancel</a>
+                                        <a class="button is-danger is-pulled-left"
+                                           href="{% url "home" %}?{{ request.GET.urlencode }}">
+                                            Cancel
+                                        </a>
                                     </p>
                                     <p class="control">
                                         <button class="button is-success is-pulled-right" type="submit">Save</button>
