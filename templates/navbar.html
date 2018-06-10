@@ -30,6 +30,12 @@
                 {% endwith %}
             </div>
             <div class="navbar-end">
+                <a class="navbar-item">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>&nbsp;
+                    <strong>{{ request.user.username }}</strong>
+                </a>
                 <a class="navbar-item" href="/logout/">
                     <strong>Logout</strong>
                 </a>

@@ -15,3 +15,4 @@ test:
 deploy: test
 	@git push heroku --force
 	@heroku config:set COMMIT_HASH="${COMMIT_HASH}"
+	@heroku run python manage.py migrate

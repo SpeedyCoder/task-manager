@@ -66,9 +66,8 @@ class TaskUpdateView(SuccessUrlFromPayloadMixin, PermissionRequiredMixin, Update
         return super().form_valid(form)
 
 
-class CompleteView(PermissionRequiredMixin, SingleObjectMixin, View):
+class TaskCompleteView(SingleObjectMixin, View):
     model = Task
-    permission_required = 'tasks.change_task'
 
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -98,5 +97,5 @@ class TaskDeleteView(PermissionRequiredMixin, DeleteView):
 task_list = login_required(TaskListView.as_view())
 task_create = login_required(TaskCreateView.as_view())
 task_update = login_required(TaskUpdateView.as_view())
-task_complete = login_required(TaskUpdateView.as_view())
+task_complete = login_required(TaskCompleteView.as_view())
 task_delete = login_required(TaskDeleteView.as_view())
